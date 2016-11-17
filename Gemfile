@@ -8,6 +8,9 @@ gem 'rails', '>= 5.0.0.rc2', '< 5.1'
 # React.js
 gem 'react-rails'
 
+# postgres
+gem 'pg'
+
 # Gems used only for assets and not required
 # in production environments by default.
 
