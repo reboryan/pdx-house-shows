@@ -58,5 +58,8 @@ module Pdxhouseshows
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # React.js addon utilities
+    config.react.addons = true
   end
 end

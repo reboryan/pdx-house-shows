@@ -34,4 +34,7 @@ Pdxhouseshows::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # React.js build
+  config.react.variant = :development
 end

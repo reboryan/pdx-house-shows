@@ -5,6 +5,8 @@ gem 'rails', '>= 5.0.0.rc2', '< 5.1'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git
 
+# React.js
+gem 'react-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
