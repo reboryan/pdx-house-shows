@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161118175321) do
+ActiveRecord::Schema.define(version: 20161118220739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,12 +31,14 @@ ActiveRecord::Schema.define(version: 20161118175321) do
     t.string   "title"
     t.datetime "start_date"
     t.datetime "end_date"
-    t.text     "rsvp_list",  default: [],              array: true
+    t.text     "rsvp_list",   default: [],                array: true
     t.boolean  "public"
     t.integer  "house_id"
     t.integer  "user_id"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.text     "description"
+    t.boolean  "all_ages",    default: true
     t.index ["house_id"], name: "index_events_on_house_id", using: :btree
     t.index ["user_id"], name: "index_events_on_user_id", using: :btree
   end
