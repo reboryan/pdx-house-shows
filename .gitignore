@@ -1,1 +1,18 @@
-.DS_Store
+*.DS_Store
+
+# anything uploaded
+/public/uploads/
+
+# precompiled assets
+/public/assets/
+
+# Ignore bundler config
+/.bundle
+
+# Ignore all logfiles and tempfiles.
+/log/*.log
+*.log
+/tmp
+
+# Ignore any dump files
+*.dump

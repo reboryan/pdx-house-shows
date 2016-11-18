@@ -66,3 +66,175 @@ ORDER BY c.conname
   [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "users" ("first_name", "last_name", "username", "email", "host") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["first_name", "Mike"], ["last_name", "Wroblewski"], ["username", "hellopenope"], ["email", "mike@marmosetmusic.com"], ["host", false]]
   [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
   [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5022578580069669780);[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to AddDefaultValueToHost (20161117235413)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (6.2ms)[0m  [1m[35mALTER TABLE "users" ALTER COLUMN "host" TYPE boolean[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "users" ALTER COLUMN "host" SET DEFAULT 'f'[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20161117235413"]]
+  [1m[35m (6.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", :environment], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(5022578580069669780)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (2.0ms)[0m  [1m[34mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'users'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5022578580069669780);[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateHouses (20161118001842)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (29.1ms)[0m  [1m[35mCREATE TABLE "houses" ("id" serial primary key, "name" character varying, "user_id" integer, "description" text, "capacity" integer DEFAULT 0, "event_count" integer DEFAULT 0, "public" boolean DEFAULT 'f', "images" text[] DEFAULT '{}', "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE  INDEX  "index_houses_on_user_id" ON "houses"  ("user_id")[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20161118001842"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", :environment], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(5022578580069669780)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (2.3ms)[0m  [1m[34mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'houses'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (1.7ms)[0m  [1m[34mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'users'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+DEPRECATION WARNING: You didn't set `secret_key_base`. Read the upgrade documentation to learn more about this new config option. (called from validate_secret_key_config! at /Users/hellopenope/.rvm/gems/ruby-2.2.4/gems/railties-5.0.0.rc2/lib/rails/application.rb:509)
+Started GET "/" for ::1 at 2016-11-17 16:43:40 -0800
+Processing by HousesController#index as HTML
+Completed 406 Not Acceptable in 214ms
+
+
+  
+ActionController::UnknownFormat (HousesController#index is missing a template for this request format and variant.
+
+request.formats: ["text/html"]
+request.variant: []
+
+NOTE! For XHR/Ajax or API requests, this action would normally respond with 204 No Content: an empty white screen. Since you're loading it in a web browser, we assume that you expected to actually render a template, not… nothing, so we're showing an error to be extra-clear. If you expect 204 No Content, carry on. That's what you'll get from an XHR or API request. Give it a shot.):
+  
+actionpack (5.0.0.rc2) lib/action_controller/metal/implicit_render.rb:56:in `default_render'
+actionpack (5.0.0.rc2) lib/action_controller/metal/basic_implicit_render.rb:4:in `block in send_action'
+actionpack (5.0.0.rc2) lib/action_controller/metal/basic_implicit_render.rb:4:in `tap'
+actionpack (5.0.0.rc2) lib/action_controller/metal/basic_implicit_render.rb:4:in `send_action'
+actionpack (5.0.0.rc2) lib/abstract_controller/base.rb:188:in `process_action'
+actionpack (5.0.0.rc2) lib/action_controller/metal/rendering.rb:30:in `process_action'
+actionpack (5.0.0.rc2) lib/abstract_controller/callbacks.rb:20:in `block in process_action'
+activesupport (5.0.0.rc2) lib/active_support/callbacks.rb:126:in `call'
+activesupport (5.0.0.rc2) lib/active_support/callbacks.rb:126:in `call'
+activesupport (5.0.0.rc2) lib/active_support/callbacks.rb:506:in `block (2 levels) in compile'
+activesupport (5.0.0.rc2) lib/active_support/callbacks.rb:455:in `call'
+activesupport (5.0.0.rc2) lib/active_support/callbacks.rb:455:in `call'
+activesupport (5.0.0.rc2) lib/active_support/callbacks.rb:101:in `__run_callbacks__'
+activesupport (5.0.0.rc2) lib/active_support/callbacks.rb:750:in `_run_process_action_callbacks'
+activesupport (5.0.0.rc2) lib/active_support/callbacks.rb:90:in `run_callbacks'
+actionpack (5.0.0.rc2) lib/abstract_controller/callbacks.rb:19:in `process_action'
+actionpack (5.0.0.rc2) lib/action_controller/metal/rescue.rb:20:in `process_action'
+actionpack (5.0.0.rc2) lib/action_controller/metal/instrumentation.rb:32:in `block in process_action'
+activesupport (5.0.0.rc2) lib/active_support/notifications.rb:164:in `block in instrument'
+activesupport (5.0.0.rc2) lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+activesupport (5.0.0.rc2) lib/active_support/notifications.rb:164:in `instrument'
+actionpack (5.0.0.rc2) lib/action_controller/metal/instrumentation.rb:30:in `process_action'
+actionpack (5.0.0.rc2) lib/action_controller/metal/params_wrapper.rb:248:in `process_action'
+activerecord (5.0.0.rc2) lib/active_record/railties/controller_runtime.rb:18:in `process_action'
+actionpack (5.0.0.rc2) lib/abstract_controller/base.rb:126:in `process'
+actionview (5.0.0.rc2) lib/action_view/rendering.rb:30:in `process'
+actionpack (5.0.0.rc2) lib/action_controller/metal.rb:190:in `dispatch'
+actionpack (5.0.0.rc2) lib/action_controller/metal.rb:262:in `dispatch'
+actionpack (5.0.0.rc2) lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+actionpack (5.0.0.rc2) lib/action_dispatch/routing/route_set.rb:32:in `serve'
+actionpack (5.0.0.rc2) lib/action_dispatch/journey/router.rb:39:in `block in serve'
+actionpack (5.0.0.rc2) lib/action_dispatch/journey/router.rb:26:in `each'
+actionpack (5.0.0.rc2) lib/action_dispatch/journey/router.rb:26:in `serve'
+actionpack (5.0.0.rc2) lib/action_dispatch/routing/route_set.rb:725:in `call'
+rack (2.0.1) lib/rack/etag.rb:25:in `call'
+rack (2.0.1) lib/rack/conditional_get.rb:25:in `call'
+rack (2.0.1) lib/rack/head.rb:12:in `call'
+rack (2.0.1) lib/rack/session/abstract/id.rb:222:in `context'
+rack (2.0.1) lib/rack/session/abstract/id.rb:216:in `call'
+actionpack (5.0.0.rc2) lib/action_dispatch/middleware/cookies.rb:613:in `call'
+actionpack (5.0.0.rc2) lib/action_dispatch/middleware/callbacks.rb:38:in `block in call'
+activesupport (5.0.0.rc2) lib/active_support/callbacks.rb:97:in `__run_callbacks__'
+activesupport (5.0.0.rc2) lib/active_support/callbacks.rb:750:in `_run_call_callbacks'
+activesupport (5.0.0.rc2) lib/active_support/callbacks.rb:90:in `run_callbacks'
+actionpack (5.0.0.rc2) lib/action_dispatch/middleware/callbacks.rb:36:in `call'
+actionpack (5.0.0.rc2) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.0.0.rc2) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.0.0.rc2) lib/action_dispatch/middleware/debug_exceptions.rb:49:in `call'
+actionpack (5.0.0.rc2) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.0.0.rc2) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.0.0.rc2) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.0.0.rc2) lib/active_support/tagged_logging.rb:70:in `block in tagged'
+activesupport (5.0.0.rc2) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.0.0.rc2) lib/active_support/tagged_logging.rb:70:in `tagged'
+railties (5.0.0.rc2) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.0.0.rc2) lib/action_dispatch/middleware/request_id.rb:24:in `call'
+rack (2.0.1) lib/rack/method_override.rb:22:in `call'
+rack (2.0.1) lib/rack/runtime.rb:22:in `call'
+activesupport (5.0.0.rc2) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+actionpack (5.0.0.rc2) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.0.0.rc2) lib/action_dispatch/middleware/static.rb:136:in `call'
+rack (2.0.1) lib/rack/sendfile.rb:111:in `call'
+railties (5.0.0.rc2) lib/rails/engine.rb:522:in `call'
+rack (2.0.1) lib/rack/handler/webrick.rb:86:in `service'
+/Users/hellopenope/.rvm/rubies/ruby-2.2.4/lib/ruby/2.2.0/webrick/httpserver.rb:138:in `service'
+/Users/hellopenope/.rvm/rubies/ruby-2.2.4/lib/ruby/2.2.0/webrick/httpserver.rb:94:in `run'
+/Users/hellopenope/.rvm/rubies/ruby-2.2.4/lib/ruby/2.2.0/webrick/server.rb:294:in `block in start_thread'
+  Rendering /Users/hellopenope/.rvm/gems/ruby-2.2.4/gems/actionpack-5.0.0.rc2/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout
+  Rendering /Users/hellopenope/.rvm/gems/ruby-2.2.4/gems/actionpack-5.0.0.rc2/lib/action_dispatch/middleware/templates/rescues/_source.html.erb
+  Rendered /Users/hellopenope/.rvm/gems/ruby-2.2.4/gems/actionpack-5.0.0.rc2/lib/action_dispatch/middleware/templates/rescues/_source.html.erb (11.3ms)
+  Rendering /Users/hellopenope/.rvm/gems/ruby-2.2.4/gems/actionpack-5.0.0.rc2/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb
+  Rendered /Users/hellopenope/.rvm/gems/ruby-2.2.4/gems/actionpack-5.0.0.rc2/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.9ms)
+  Rendering /Users/hellopenope/.rvm/gems/ruby-2.2.4/gems/actionpack-5.0.0.rc2/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb
+  Rendered /Users/hellopenope/.rvm/gems/ruby-2.2.4/gems/actionpack-5.0.0.rc2/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (2.2ms)
+  Rendered /Users/hellopenope/.rvm/gems/ruby-2.2.4/gems/actionpack-5.0.0.rc2/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (63.1ms)
+Started GET "/" for ::1 at 2016-11-17 16:44:28 -0800
+Processing by HousesController#index as HTML
+  Rendering houses/index.html.erb within layouts/application
+  Rendered houses/index.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 743ms (Views: 742.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.self-f9e7c1541e1b8783561468c59162bd896007380f5a3799ef2169d3a3fdf40bed.css?body=1" for ::1 at 2016-11-17 16:44:29 -0800
+Started GET "/assets/react.self-0d1d65e9a13d8e392fff76b5804914dcfb1688b1f8dedc9c8f8341123253d6db.js?body=1" for ::1 at 2016-11-17 16:44:29 -0800
+Started GET "/assets/react_ujs_turbolinks.self-19cb50a828b179c80e0ef6463ceb612ae3e75f377fb2dd6f4afdc3b46ae75d56.js?body=1" for ::1 at 2016-11-17 16:44:29 -0800
+Started GET "/assets/react_ujs_turbolinks_classic_deprecated.self-f93fc4217cec084020eaf90b0425c454ba18d4ee1a054f254f5dba461eaab1a4.js?body=1" for ::1 at 2016-11-17 16:44:29 -0800
+Started GET "/assets/jquery.self-4c7649dd655c61cb850cfd2e71f937c3bbf3e3a752a3499ed8bb9884473fe1dd.js?body=1" for ::1 at 2016-11-17 16:44:29 -0800
+Started GET "/assets/react_ujs_pjax.self-e8fc58103934b6c8054d5fbfe37ec92f2ef7719bc90566026fe9fe19e0e2cf45.js?body=1" for ::1 at 2016-11-17 16:44:29 -0800
+Started GET "/assets/jquery_ujs.self-82819b9f2de121124a614eeab50287468ad6f4b1ef4437925a7832ffbdf2cce9.js?body=1" for ::1 at 2016-11-17 16:44:29 -0800
+Started GET "/assets/react_ujs_mount.self-529311908dc83d0737d62f1a5eb4e2fa326f2040e2d2755b4fd78d2c09c5cc15.js?body=1" for ::1 at 2016-11-17 16:44:29 -0800
+Started GET "/assets/react_ujs_native.self-69da92af440ae3f522e7294876ed2bae234447ee564d1619c9f69d53e1020a8a.js?body=1" for ::1 at 2016-11-17 16:44:29 -0800
+Started GET "/assets/react_ujs_turbolinks_classic.self-763df8fa4c0b0551840f5244b265843641523ad3bf7bb308d20801ac5cde2acb.js?body=1" for ::1 at 2016-11-17 16:44:29 -0800
+Started GET "/assets/react_ujs_event_setup.self-0cd254aea0ec32dd175eff42a443f912c283295c0235384ae7cd425cd8f7c3e5.js?body=1" for ::1 at 2016-11-17 16:44:29 -0800
+Started GET "/assets/components.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js?body=1" for ::1 at 2016-11-17 16:44:29 -0800
+Started GET "/assets/react_ujs.self-538d6440534fa5f615e8a26932792a82a2e4a33a97886e2d815eab8fc216d415.js?body=1" for ::1 at 2016-11-17 16:44:29 -0800
+Started GET "/assets/application.self-90e7ed1c03f271c6d5d952d21e8059fdd75eece5a10b1cf1b92a994332ddc129.js?body=1" for ::1 at 2016-11-17 16:44:29 -0800
