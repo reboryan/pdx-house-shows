@@ -36,4 +36,6 @@ Pdxhouseshows::Application.configure do
 
   # React.js build
   config.react.variant = :development
+
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 end
